@@ -1,0 +1,17 @@
+{
+    "name": "guilh/mapcity_back",
+    "autoload": {
+        "psr-4": {
+            "MapcityBack\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Guilherme",
+            "email": "guilhermeestevao123@outlook.com"
+        }
+    ],
+    "require": {
+        "pecee/simple-router": "^5.4"
+    }
+}
