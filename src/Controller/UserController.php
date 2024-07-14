@@ -1,16 +1,16 @@
 <?php
 
 namespace MapcityBack\Controller;
-use MapcityBack\Database\Database;
+use MapcityBack\Models\UserModel;
 use PDOException;
 
 class UserController
 {
-    private $pdo;
+    private $userModel;
 
     public function __construct()
     {
-        $this->pdo = Database::connection();
+        $this->userModel = new UserModel();
     }
 
     public function register() {
@@ -29,24 +29,15 @@ class UserController
         }
 
         try {
-            $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
-            $stmt->bindParam(':email', $email);
-            $stmt->execute();
-            $emailExists = $stmt->fetchColumn();
+            $existEmail = $this->userModel->existEmail($email);
 
-            if ($emailExists) {
+            if ($existEmail) {
                 header("HTTP/1.0 409");
                 echo json_encode(["message" => "E-mail já cadastrado!"]);
                 return false;
             }
 
-            $stmt = $this->pdo->prepare("INSERT INTO users (email, nome, password) VALUES (:email, :nome, :password)");
-
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':nome', $nome);
-            $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT)); 
-
-            $stmt->execute();
+            $this->userModel->create($email, $password, $nome);
 
             header("HTTP/1.0 200");
             echo json_encode(["message" => "Usuário criado com sucesso!"]);
