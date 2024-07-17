@@ -14,7 +14,6 @@ class UserController
     }
 
     public function register() {
-    
         $input = file_get_contents('php://input');
         $dataDecode = json_decode($input, true);
 
