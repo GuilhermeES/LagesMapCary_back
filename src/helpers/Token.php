@@ -12,13 +12,12 @@ class Token
     }
 
     public function generateToken() {
-        $expire = $this->expire(); 
         $payload = [
-            'iss' => 'http://localhost:8000/',
-            'aud' => 'http://localhost:8000/',
+            'iss' => 'http://localhost:5173/',
+            'aud' => 'http://localhost:5173/',
             'iat' => time(),         
             'nbf' => time(),      
-            'exp' => $expire,
+            'exp' => $this->expire(),
         ];
         return JWT::encode($payload, $this->secretKey, 'HS256');
     }
