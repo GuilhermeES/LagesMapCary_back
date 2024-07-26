@@ -6,7 +6,7 @@ use PDO;
 
 class UserModel
 {
-    private $pdo;
+    public $pdo;
 
     public function __construct()
     {

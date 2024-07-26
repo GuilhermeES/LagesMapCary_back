@@ -6,7 +6,7 @@ use PDOException;
 
 class UserController
 {
-    private $userModel;
+    public $userModel;
 
     public function __construct()
     {

@@ -7,7 +7,7 @@ use MapcityBack\Controller\DashboardController;
 use MapcityBack\Controller\LoginController;
 use MapcityBack\Controller\UserController;
 
-SimpleRouter::get('/login', [LoginController::class, 'login']);
+SimpleRouter::post('/login', [LoginController::class, 'login']);
 SimpleRouter::post('/register', [UserController::class, 'register']);
 
 SimpleRouter::group(['middleware' => TokenMiddleware::class], function () {
