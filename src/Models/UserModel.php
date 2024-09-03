@@ -13,6 +13,13 @@ class UserModel
         $this->pdo = Database::connection();
     }
 
+    public function existUser($user_id) {
+        $query = $this->pdo->prepare("SELECT * FROM users WHERE id = :user_id");
+        $query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchColumn();
+    }
+
     public function existEmail($email) {
         $query = $this->pdo->prepare("SELECT * FROM users where email = :email");
         $query->bindParam(":email", $email);

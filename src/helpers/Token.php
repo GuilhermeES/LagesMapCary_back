@@ -5,8 +5,6 @@ use \Firebase\JWT\JWT;
 
 class Token
 {
-    private $secretKey = '84f6924f-7fd5-454f-a55a-1198a11b4319';
-
     public function expire() {
         return time() + 3600;
     }
@@ -19,6 +17,6 @@ class Token
             'nbf' => time(),      
             'exp' => $this->expire(),
         ];
-        return JWT::encode($payload, $this->secretKey, 'HS256');
+        return JWT::encode($payload, $_ENV['SECRET_KEY'], 'HS256');
     }
 }
